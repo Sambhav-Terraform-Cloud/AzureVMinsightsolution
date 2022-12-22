@@ -33,11 +33,11 @@ resource "azurerm_windows_virtual_machine" "myWindowsVm1" {
   location                        = data.azurerm_resource_group.rg.location
   size                            = "Standard_B2s"
   admin_username                  = "adminlogin"
-  admin_password                  = random_password.windowsvm-password.result
+  admin_password                  = "Password@123"
   identity { type = "SystemAssigned" }
 
   network_interface_ids = [
-    azurerm_network_interface.windowsvm-c-nic.id,
+    azurerm_network_interface.myNic.id,
   ]
   os_disk {
     caching              = "ReadWrite"
