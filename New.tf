@@ -1,18 +1,6 @@
 
 # Add logging and monitoring extensions. This extension is needed for other extensions
 resource "azurerm_virtual_machine_extension" "azure-monitor-agent" {
-  
-  name                  = "AzureMonitorWindowsAgent"
-  virtual_machine_id    = azurerm_windows_virtual_machine.myWindowsVm1.id
-  publisher             = "Microsoft.Azure.Monitor"
-  type                  = "AzureMonitorWindowsAgent"
-  type_handler_version  =  "1.5"
-  automatic_upgrade_enabled  = true
-  auto_upgrade_minor_version = true
-}
-
-# Azure Monitoring extension
-resource "azurerm_virtual_machine_extension" "azure-monitor-agent" {
 
   for_each = {
     "AzureMonitorWindowsAgent" = {virtual_machine_id = "azurerm_windows_virtual_machine.myWindowsVm1.id", version = "1.10.0.0"}
