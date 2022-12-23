@@ -39,6 +39,7 @@ resource "azurerm_windows_virtual_machine" "myWindowsVm1" {
   network_interface_ids = [
     azurerm_network_interface.myNic.id,
   ]
+  
   os_disk {
     caching              = "ReadWrite"
     storage_account_type = "Standard_LRS"
@@ -65,11 +66,9 @@ resource "azurerm_linux_virtual_machine" "myLinuxVm1" {
     azurerm_network_interface.myNic.id,
   ]
   
-  source_image_reference {
-    publisher = "Canonical"
-    offer     = "UbuntuServer"
-    sku       = "16.04-LTS"
-    version   = "latest"
+  os_disk {
+    caching              = "ReadWrite"
+    storage_account_type = "Standard_LRS"
   }
   
   source_image_reference {
@@ -78,4 +77,5 @@ resource "azurerm_linux_virtual_machine" "myLinuxVm1" {
     sku       = "16.04-LTS"
     version   = "latest"
   }
+
 }
