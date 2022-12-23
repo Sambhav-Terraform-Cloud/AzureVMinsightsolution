@@ -13,8 +13,20 @@ resource "azurerm_subnet" "mySubnet" {
   address_prefixes     = ["10.0.2.0/24"]
 }
 
-resource "azurerm_network_interface" "myNic" {
-  name                = "myNic1"
+resource "azurerm_network_interface" "myWinNic" {
+  name                = "myWinNic1"
+  resource_group_name             = data.azurerm_resource_group.rg.name
+  location                        = data.azurerm_resource_group.rg.location
+
+  ip_configuration {
+    name                          = "internal"
+    subnet_id                     = azurerm_subnet.mySubnet.id
+    private_ip_address_allocation = "Dynamic"
+  }
+}
+
+resource "azurerm_network_interface" "myLinNic" {
+  name                = "myLinNic1"
   resource_group_name             = data.azurerm_resource_group.rg.name
   location                        = data.azurerm_resource_group.rg.location
 
@@ -37,7 +49,7 @@ resource "azurerm_windows_virtual_machine" "myWindowsVm1" {
   identity { type = "SystemAssigned" }
 
   network_interface_ids = [
-    azurerm_network_interface.myNic.id,
+    azurerm_network_interface.myWinNic.id,
   ]
   
   os_disk {
@@ -63,7 +75,7 @@ resource "azurerm_linux_virtual_machine" "myLinuxVm1" {
   admin_password      = "Password@123"
   disable_password_authentication = false
   network_interface_ids = [
-    azurerm_network_interface.myNic.id,
+    azurerm_network_interface.myLinNic.id,
   ]
   
   os_disk {
