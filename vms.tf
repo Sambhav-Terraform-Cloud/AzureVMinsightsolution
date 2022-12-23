@@ -25,7 +25,7 @@ resource "azurerm_network_interface" "myNic" {
   }
 }
 
-# Define the VM itself
+# Windows VM
 resource "azurerm_windows_virtual_machine" "myWindowsVm1" {
   name                            = "mywindowsvm1"
   computer_name                   = "mywindowsvm1"
@@ -43,6 +43,13 @@ resource "azurerm_windows_virtual_machine" "myWindowsVm1" {
     caching              = "ReadWrite"
     storage_account_type = "Standard_LRS"
   }
+  
+  source_image_reference {
+    publisher = "MicrosoftWindowsServer"
+    offer     = "WindowsServer"
+    sku       = "2016-Datacenter"
+    version   = "latest"
+  }
  
 }
 
@@ -57,4 +64,18 @@ resource "azurerm_linux_virtual_machine" "myLinuxVm1" {
   network_interface_ids = [
     azurerm_network_interface.myNic.id,
   ]
+  
+  source_image_reference {
+    publisher = "Canonical"
+    offer     = "UbuntuServer"
+    sku       = "16.04-LTS"
+    version   = "latest"
+  }
+  
+  source_image_reference {
+    publisher = "Canonical"
+    offer     = "UbuntuServer"
+    sku       = "16.04-LTS"
+    version   = "latest"
+  }
 }
