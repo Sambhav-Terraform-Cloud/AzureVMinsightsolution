@@ -23,8 +23,8 @@ resource "azurerm_virtual_machine_extension" "azure-dependency-agent" {
   
   #type as key
   for_each = {
-    "DependencyAgentWindows" = {id = "azurerm_windows_virtual_machine.myWindowsVm1.id", version = "9.10"}
-    "DependencyAgentLinux" = {id = "azurerm_linux_virtual_machine.myLinuxVm1.id", version = "9.5"}
+    "DependencyAgentWindows" = {id = "${azurerm_windows_virtual_machine.myWindowsVm1.id}", version = "9.10"}
+    "DependencyAgentLinux" = {id = "${azurerm_linux_virtual_machine.myLinuxVm1.id}", version = "9.5"}
   }
   
   name                  = "DAExtension"
