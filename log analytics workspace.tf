@@ -18,6 +18,6 @@ resource "azurerm_log_analytics_solution" "vminsights" {
   workspace_name        = azurerm_log_analytics_workspace.law.name
   plan {
     publisher = "Microsoft"
-    product   = "VMInsights"
+    product   = "OMSGallery/Containers"
   }
 }
