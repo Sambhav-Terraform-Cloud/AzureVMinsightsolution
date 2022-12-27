@@ -31,7 +31,7 @@ resource "azurerm_virtual_machine_extension" "azure-dependency-agent" {
   virtual_machine_id    = each.value.id
   publisher             = "Microsoft.Azure.Monitoring.DependencyAgent"
   type                  = each.key
-  type_handler_version  =  "1.5"
+  type_handler_version  =  each.value.version
   automatic_upgrade_enabled  = true
   auto_upgrade_minor_version = true
 }
