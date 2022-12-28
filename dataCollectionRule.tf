@@ -38,3 +38,16 @@ resource "azurerm_monitor_data_collection_rule" "rule" {
     azurerm_log_analytics_solution.vminsights
   ]
 }
+
+
+resource "azurerm_monitor_data_collection_rule_association" "example1" {
+  
+  for_each = {
+        "windowsVM-dcra-" = {machine_id = "${azurerm_windows_virtual_machine.myWindowsVm1.id}", desc = "Windows VM data collection rule association"}
+        "linuxVM-dcra" = {machine_id = "${azurerm_linux_virtual_machine.myLinuxVm1.id}", desc = "Linux VM data collection rule association"}
+  }
+  name                    = each.key
+  target_resource_id      = each.value.machine_id
+  data_collection_rule_id = azurerm_monitor_data_collection_rule.rule.id
+  description             = each.value.desc
+}
