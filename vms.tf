@@ -46,7 +46,11 @@ resource "azurerm_windows_virtual_machine" "myWindowsVm1" {
   size                            = "Standard_B2s"
   admin_username                  = "adminlogin"
   admin_password                  = "Password@123"
-  identity { type = "SystemAssigned" }
+  
+  identity {
+    type         = "SystemAssigned, UserAssigned"
+    identity_ids = [azurerm_user_assigned_identity.myUserassignedIdentiy.id]
+  }
 
   network_interface_ids = [
     azurerm_network_interface.myWinNic.id,
@@ -74,6 +78,12 @@ resource "azurerm_linux_virtual_machine" "myLinuxVm1" {
   admin_username      = "adminuser"
   admin_password      = "Password@123"
   disable_password_authentication = false
+  
+  identity {
+    type         = "SystemAssigned, UserAssigned"
+    identity_ids = [azurerm_user_assigned_identity.myUserassignedIdentiy.id]
+  }
+  
   network_interface_ids = [
     azurerm_network_interface.myLinNic.id,
   ]
