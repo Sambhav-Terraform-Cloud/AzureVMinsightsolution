@@ -15,6 +15,7 @@ resource "azurerm_virtual_machine_extension" "azure-monitor-agent" {
   automatic_upgrade_enabled  = true
   auto_upgrade_minor_version = true
   
+  
   settings = <<SETTINGS
     {
         "workspaceId": "${azurerm_log_analytics_workspace.law.id}",
