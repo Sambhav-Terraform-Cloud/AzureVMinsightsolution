@@ -1,7 +1,7 @@
  resource "azurerm_monitor_data_collection_rule" "mydcr" {
       name                = "My-dcr"
-      resource_group_name = var.az_resource_group_name
-      location            = var.az_location
+      resource_group_name             = data.azurerm_resource_group.rg.name
+      location                        = data.azurerm_resource_group.rg.location
     
       destinations {
         log_analytics {
@@ -39,6 +39,6 @@
     }
       name                    = each.key
       target_resource_id      = each.value.machine_id
-      data_collection_rule_id = azurerm_monitor_data_collection_rule.example.id
+      data_collection_rule_id = azurerm_monitor_data_collection_rule.mydcr.id
       description             = each.value.desc
     }
