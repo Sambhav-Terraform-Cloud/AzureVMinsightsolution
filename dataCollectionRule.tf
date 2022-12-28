@@ -1,8 +1,8 @@
 # Data Collection Rules
 resource "azurerm_monitor_data_collection_rule" "rule" {
   name                = "my-dcr"
-  resource_group_name = azurerm_resource_group.example.name
-  location            = azurerm_resource_group.example.location
+  resource_group_name             = data.azurerm_resource_group.rg.name
+  location                        = data.azurerm_resource_group.rg.location
 
   destinations {
     log_analytics {
@@ -40,7 +40,7 @@ resource "azurerm_monitor_data_collection_rule" "rule" {
 }
 
 
-resource "azurerm_monitor_data_collection_rule_association" "example1" {
+resource "azurerm_monitor_data_collection_rule_association" "dcra" {
   
   for_each = {
         "windowsVM-dcra-" = {machine_id = "${azurerm_windows_virtual_machine.myWindowsVm1.id}", desc = "Windows VM data collection rule association"}
