@@ -46,7 +46,6 @@
     }
       name                    = each.key
       target_resource_id      = each.value.machine_id
-      data_collection_rule_id = azurerm_monitor_data_collection_rule.mydcr.id
       data_collection_endpoint_id = azurerm_monitor_data_collection_endpoint.myDCE.id
       description             = each.value.desc
     }
