@@ -44,7 +44,7 @@
         "windowsVM-dcra-" = {machine_id = "${azurerm_windows_virtual_machine.myWindowsVm1.id}", desc = "Windows VM data collection rule association"}
         "linuxVM-dcra" = {machine_id = "${azurerm_linux_virtual_machine.myLinuxVm1.id}", desc = "Linux VM data collection rule association"}
     }
-      name                    = each.key
+      name                    = "configurationAccessEndpoint"
       target_resource_id      = each.value.machine_id
       data_collection_endpoint_id = azurerm_monitor_data_collection_endpoint.myDCE.id
       description             = each.value.desc
