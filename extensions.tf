@@ -60,5 +60,4 @@ resource "azurerm_virtual_machine_extension" "azure-dependency-agent" {
         "workspaceKey": "${azurerm_log_analytics_workspace.law.primary_shared_key}"
       }
     PROTECTED_SETTINGS
-  }
 }
