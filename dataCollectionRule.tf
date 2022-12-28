@@ -6,7 +6,7 @@ resource "azurerm_monitor_data_collection_rule" "rule" {
 
   destinations {
     log_analytics {
-      workspace_resource_id = azurerm_log_analytics_workspace.workspace.id
+      workspace_resource_id = azurerm_log_analytics_workspace.law.id
       name                  = "destination-log"
     }
 
