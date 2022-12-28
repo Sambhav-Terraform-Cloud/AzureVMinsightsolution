@@ -30,6 +30,13 @@
     }
      }
     
+    resource "azurerm_monitor_data_collection_endpoint" "myDCE" {
+      name                = "My-dce"
+      resource_group_name             = data.azurerm_resource_group.rg.name
+      location                        = data.azurerm_resource_group.rg.location
+    }
+
+    
     # associate to a Data Collection Rule
     resource "azurerm_monitor_data_collection_rule_association" "mydcra" {
       
@@ -40,5 +47,8 @@
       name                    = each.key
       target_resource_id      = each.value.machine_id
       data_collection_rule_id = azurerm_monitor_data_collection_rule.mydcr.id
+      data_collection_endpoint_id = azurerm_monitor_data_collection_endpoint.myDCE.id
       description             = each.value.desc
     }
+
+    
