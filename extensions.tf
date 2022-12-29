@@ -3,8 +3,8 @@
 resource "azurerm_virtual_machine_extension" "azure-monitor-agent" {
 
   for_each = {
-    "AzureMonitorWindowsAgent" = {machine_id = "${azurerm_windows_virtual_machine.myWindowsVm1.id}", version = "1.10"}
-    "AzureMonitorLinuxAgent" = {machine_id = "${azurerm_linux_virtual_machine.myLinuxVm1.id}", version = "1.24"}
+    "AzureMonitorWindowsAgent" = {id = "${azurerm_windows_virtual_machine.myWindowsVm1.id}", version = "1.10"}
+    "AzureMonitorLinuxAgent" = {id = "${azurerm_linux_virtual_machine.myLinuxVm1.id}", version = "1.24"}
   }
   
   name                  = each.key
@@ -17,7 +17,7 @@ resource "azurerm_virtual_machine_extension" "azure-monitor-agent" {
   
   settings = jsonencode({
     workspaceId               = azurerm_log_analytics_workspace.law.id
-    azureResourceId           = each.value.machine_id
+    azureResourceId           = each.value.id
     stopOnMultipleConnections = false
 
     authentication = {
