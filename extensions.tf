@@ -8,7 +8,7 @@ resource "azurerm_virtual_machine_extension" "azure-monitor-agent" {
   }
   
   name                  = each.key
-  virtual_machine_id    = each.value.machine_id
+  virtual_machine_id    = each.value.id
   publisher             = "Microsoft.Azure.Monitor"
   type                  = each.key
   type_handler_version  =  each.value.version
