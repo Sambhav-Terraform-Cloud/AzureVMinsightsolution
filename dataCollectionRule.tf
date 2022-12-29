@@ -66,7 +66,7 @@ resource "azurerm_monitor_data_collection_rule" "rule-linux" {
   }
 
   data_flow {
-    streams      = ["Microsoft-InsightsMetrics", "Microsoft-Syslog", "Microsoft-Perf"]
+    streams      = ["Microsoft-InsightsMetrics", "Microsoft-Syslog"]
     destinations = ["destination-log-linux"]
   }
 
