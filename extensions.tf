@@ -15,7 +15,8 @@ resource "azurerm_virtual_machine_extension" "azure-monitor-agent" {
   automatic_upgrade_enabled  = true
   auto_upgrade_minor_version = true
   
-settings = <<SETTINGS
+/*
+    settings = <<SETTINGS
     {
       "workspaceId" : "${azurerm_log_analytics_workspace.law.workspace_id}"
     }
@@ -26,6 +27,8 @@ settings = <<SETTINGS
       "workspaceKey" : "${azurerm_log_analytics_workspace.law.primary_shared_key}"
     }
   PROTECTED_SETTINGS
+
+*/  
 }
 
 # Dependency agent extension
