@@ -3,6 +3,8 @@
 # Data colletion rule - Windows
 resource "azurerm_monitor_data_collection_rule" "rule-windows" {
   name                = "my-dcr-windows"
+  resource_group_name             = data.azurerm_resource_group.rg.name
+  location                        = data.azurerm_resource_group.rg.location
 
   destinations {
     log_analytics {
@@ -44,6 +46,8 @@ resource "azurerm_monitor_data_collection_rule" "rule-windows" {
 
 resource "azurerm_monitor_data_collection_rule" "rule-linux" {
   name                = "my-dcr-linux"
+  resource_group_name             = data.azurerm_resource_group.rg.name
+  location                        = data.azurerm_resource_group.rg.location
 
   destinations {
     log_analytics {
