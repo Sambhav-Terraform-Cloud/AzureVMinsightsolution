@@ -17,7 +17,7 @@ resource "azurerm_virtual_machine_extension" "azure-monitor-agent" {
   
   settings = jsonencode({
     workspaceId               = azurerm_log_analytics_workspace.law.id
-    azureResourceId           = ${each.value.machine_id}
+    azureResourceId           = each.value.machine_id
     stopOnMultipleConnections = false
 
     authentication = {
