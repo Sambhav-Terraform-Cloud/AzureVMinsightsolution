@@ -15,22 +15,17 @@ resource "azurerm_virtual_machine_extension" "azure-monitor-agent" {
   automatic_upgrade_enabled  = true
   auto_upgrade_minor_version = true
   
-  settings = jsonencode({
-    workspaceId               = azurerm_log_analytics_workspace.law.id
-    azureResourceId           = each.value.id
-    stopOnMultipleConnections = false
-
-    authentication = {
-      managedIdentity = {
-        identifier-name  = "mi_res_id"
-        identifier-value = azurerm_user_assigned_identity.myUserassignedIdentiy.id
-      }
+settings = <<SETTINGS
+    {
+      "workspaceId" : "${azurerm_log_analytics_workspace.law.workspace_id}"
     }
+  SETTINGS
 
-  })
-  protected_settings = jsonencode({
-    "workspaceKey" = azurerm_log_analytics_workspace.law.primary_shared_key
-  })
+  protected_settings = <<PROTECTED_SETTINGS
+    {
+      "workspaceKey" : "${azurerm_log_analytics_workspace.law.primary_shared_key}"
+    }
+  PROTECTED_SETTINGS
 }
 
 # Dependency agent extension
