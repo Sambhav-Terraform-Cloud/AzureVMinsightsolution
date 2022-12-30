@@ -12,18 +12,40 @@ resource "azurerm_monitor_data_collection_rule" "rule" {
       name                  = "destination-log"
     }
   }
+  
+  azure_monitor_metrics {
+      name = "test-destination-metrics"
+    }
+  }
 
-  data_flow {
-    streams      = ["Microsoft-InsightsMetrics", "Microsoft-Perf", "Microsoft-Event", "Microsoft-Syslog"]
+data_flow {
+    streams      = ["Microsoft-InsightsMetrics", "Microsoft-Perf", "Microsoft-Event", "Microsoft-WindowsEvent", "Microsoft-Syslog"]
     destinations = ["destination-log"]
+  }
+  
+  data_flow {
+    streams      = ["Microsoft-InsightsMetrics"]
+    destinations = ["test-destination-metrics"]
   }
 
   data_sources {
+    syslog {
+      facility_names = ["*"]
+      log_levels     = ["*"]
+      name           = "test-datasource-syslog"
+    }
+
     performance_counter {
-      streams                       = ["Microsoft-InsightsMetrics", "Microsoft-Event", "Microsoft-Syslog"]
+      streams                       = ["Microsoft-Perf", "Microsoft-InsightsMetrics"]
       sampling_frequency_in_seconds = 60
-      counter_specifiers            = ["\\VmInsights\\DetailedMetrics"]
-      name                          = "VMInsights"
+      counter_specifiers            = ["Processor(*)\\% Processor Time"]
+      name                          = "test-datasource-perfcounter"
+    }
+
+    windows_event_log {
+      streams        = ["Microsoft-WindowsEvent"]
+      x_path_queries = ["*[System/Level=1]"]
+      name           = "test-datasource-wineventlog"
     }
 
   }
