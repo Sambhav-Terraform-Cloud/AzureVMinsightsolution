@@ -46,9 +46,8 @@ resource "azurerm_virtual_machine_extension" "azure-monitor-agent" {
     }
   PROTECTED_SETTINGS
 
-*/  
 }
-
+*/
 # Dependency agent extension
 resource "azurerm_virtual_machine_extension" "azure-dependency-agent" {
 
