@@ -11,11 +11,10 @@ resource "azurerm_monitor_data_collection_rule" "rule" {
       workspace_resource_id = azurerm_log_analytics_workspace.law.id
       name                  = "destination-log"
     }
-  }
   
-  azure_monitor_metrics {
-      name = "test-destination-metrics"
-    }
+    azure_monitor_metrics {
+        name = "destination-metrics"
+      }
   }
 
 data_flow {
@@ -25,33 +24,31 @@ data_flow {
   
   data_flow {
     streams      = ["Microsoft-InsightsMetrics"]
-    destinations = ["test-destination-metrics"]
+    destinations = ["destination-metrics"]
   }
 
   data_sources {
     syslog {
       facility_names = ["*"]
       log_levels     = ["*"]
-      name           = "test-datasource-syslog"
+      name           = "datasource-syslog"
     }
 
     performance_counter {
       streams                       = ["Microsoft-Perf", "Microsoft-InsightsMetrics"]
       sampling_frequency_in_seconds = 60
       counter_specifiers            = ["Processor(*)\\% Processor Time"]
-      name                          = "test-datasource-perfcounter"
+      name                          = "datasource-perfcounter"
     }
 
     windows_event_log {
       streams        = ["Microsoft-WindowsEvent"]
       x_path_queries = ["*[System/Level=1]"]
-      name           = "test-datasource-wineventlog"
+      name           = "datasource-wineventlog"
     }
 
   }
-  depends_on = [
-    azurerm_log_analytics_solution.vminsights
-  ]
+  depends_on = [ azurerm_log_analytics_solution.vminsights ]
 }
 
 
