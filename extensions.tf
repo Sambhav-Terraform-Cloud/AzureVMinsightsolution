@@ -1,5 +1,6 @@
 
-# Add logging and monitoring extensions. This extension is needed for other extensions
+/*
+  # Add logging and monitoring extensions. This extension is needed for other extensions
 resource "azurerm_virtual_machine_extension" "azure-monitor-agent" {
 
   for_each = {
@@ -31,7 +32,7 @@ resource "azurerm_virtual_machine_extension" "azure-monitor-agent" {
   protected_settings = jsonencode({
     "workspaceKey" = azurerm_log_analytics_workspace.law.primary_shared_key
   })
-  
+*/  
 /*
     settings = <<SETTINGS
     {
@@ -51,7 +52,7 @@ resource "azurerm_virtual_machine_extension" "azure-monitor-agent" {
 # Dependency agent extension
 resource "azurerm_virtual_machine_extension" "azure-dependency-agent" {
 
-  depends_on = [  azurerm_virtual_machine_extension.azure-monitor-agent  ]
+  // depends_on = [  azurerm_virtual_machine_extension.azure-monitor-agent  ]
   
   #type as key
   for_each = {
