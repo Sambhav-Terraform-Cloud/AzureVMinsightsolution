@@ -31,7 +31,8 @@ resource "azurerm_virtual_machine_extension" "azure-monitor-agent" {
   })
   protected_settings = jsonencode({
     "workspaceKey" = azurerm_log_analytics_workspace.law.primary_shared_key
-  })  
+  })
+}
 /*
     settings = <<SETTINGS
     {
