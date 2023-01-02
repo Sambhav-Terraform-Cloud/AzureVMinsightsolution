@@ -33,22 +33,8 @@ resource "azurerm_virtual_machine_extension" "azure-monitor-agent" {
     "workspaceKey" = azurerm_log_analytics_workspace.law.primary_shared_key
   })
 }
-/*
-    settings = <<SETTINGS
-    {
-      "workspaceId" : "${azurerm_log_analytics_workspace.law.workspace_id}"
-    }
-  SETTINGS
 
-  protected_settings = <<PROTECTED_SETTINGS
-    {
-      "workspaceKey" : "${azurerm_log_analytics_workspace.law.primary_shared_key}"
-    }
-  PROTECTED_SETTINGS
 
-}
-
-*/
 # Dependency agent extension
 resource "azurerm_virtual_machine_extension" "azure-dependency-agent" {
 
