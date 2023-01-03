@@ -10,15 +10,15 @@ resource "azurerm_virtual_machine_extension" "azure-monitor-agent" {
   }
   
   name                  = each.key
-  virtual_machine_id    = each.value.machine_id
   publisher             = "Microsoft.Azure.Monitor"
   type                  = each.key
   type_handler_version  =  each.value.version
   automatic_upgrade_enabled  = true
   auto_upgrade_minor_version = true
+  virtual_machine_id    = each.value.machine_id
   
   settings = jsonencode({
-    workspaceId               = azurerm_log_analytics_workspace.law.id
+    workspaceId               = azurerm_log_analytics_workspace.law.workspace_id
     azureResourceId           = each.value.machine_id
     stopOnMultipleConnections = false
 
