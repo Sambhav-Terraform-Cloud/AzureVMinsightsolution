@@ -14,6 +14,7 @@ resource "azurerm_virtual_machine_extension" "azure-monitor-agent" {
   type                  = each.key
   type_handler_version  =  each.value.version
   automatic_upgrade_enabled  = true
+  auto_upgrade_minor_version = "true"
   virtual_machine_id    = each.value.machine_id
   
   settings = jsonencode({
@@ -42,4 +43,5 @@ resource "azurerm_virtual_machine_extension" "azure-dependency-agent" {
   type                  = each.key
   type_handler_version  =  each.value.version
   automatic_upgrade_enabled  = true
+  auto_upgrade_minor_version = true
 }
