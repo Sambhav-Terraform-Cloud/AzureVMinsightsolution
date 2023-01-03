@@ -23,9 +23,8 @@ resource "azurerm_virtual_machine_extension" "azure-monitor-agent" {
   auto_upgrade_minor_version = true
   
   settings = jsonencode({
-    workspaceId               = azurerm_log_analytics_workspace.law.workspace_id
+    workspaceId               = azurerm_log_analytics_workspace.law.id
     azureResourceId           = each.value.machine_id
-    stopOnMultipleConnections = false
 
     authentication = {
       managedIdentity = {
