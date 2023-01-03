@@ -5,8 +5,8 @@ resource "azurerm_virtual_machine_extension" "azure-monitor-agent" {
   depends_on                 = [azurerm_virtual_machine_extension.azureda]
   
   for_each = {
-    "AzureMonitorWindowsAgent" = {machine_id = "${data.azurerm_windows_virtual_machine.windowsVM.id}", version = "1.10"}
-    "AzureMonitorLinuxAgent" = {machine_id = "${data.azurerm_linux_virtual_machine.linuxVM.id}", version = "1.24"}
+    "AzureMonitorWindowsAgent" = {machine_id = "${data.azurerm_virtual_machine.windowsVM.id}", version = "1.10"}
+    "AzureMonitorLinuxAgent" = {machine_id = "${data.azurerm_virtual_machine.linuxVM.id}", version = "1.24"}
   }
   
   name                  = each.key
@@ -33,8 +33,8 @@ resource "azurerm_virtual_machine_extension" "azure-monitor-agent" {
 resource "azurerm_virtual_machine_extension" "azureda" {
   
   for_each = {
-    "DependencyAgentWindows" = {machine_id = "${data.azurerm_windows_virtual_machine.windowsVM.id}", version = "9.10"}
-    "DependencyAgentLinux" = {machine_id = "${data.azurerm_linux_virtual_machine.linuxVM.id}", version = "9.5"}
+    "DependencyAgentWindows" = {machine_id = "${data.azurerm_virtual_machine.windowsVM.id}", version = "9.10"}
+    "DependencyAgentLinux" = {machine_id = "${data.azurerm_virtual_machine.linuxVM.id}", version = "9.5"}
   }
   
   name                  = "DAExtension"
