@@ -2,6 +2,9 @@
 
   # Add logging and monitoring extensions. This extension is needed for other extensions
 resource "azurerm_virtual_machine_extension" "azure-monitor-agent" {
+  
+depends_on = [  azurerm_monitor_data_collection_rule.rule ]
+depends_on = [  azurerm_user_assigned_identity.myUserassignedIdentity ]
 
   for_each = {
     "AzureMonitorWindowsAgent" = {machine_id = "${azurerm_windows_virtual_machine.myWindowsVm1.id}", version = "1.10"}
