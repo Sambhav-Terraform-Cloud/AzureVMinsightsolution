@@ -1,4 +1,4 @@
-/*
+
   # Data Collection Rules
 
 # Data colletion rule
@@ -64,4 +64,3 @@ resource "azurerm_monitor_data_collection_rule_association" "dcra" {
   data_collection_rule_id = "${azurerm_monitor_data_collection_rule.rule.id}"
   description             = each.value.desc
 }
-*/
