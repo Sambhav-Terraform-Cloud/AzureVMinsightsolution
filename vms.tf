@@ -43,7 +43,8 @@ resource "azurerm_windows_virtual_machine" "myWindowsVm1" {
   computer_name                   = "mywindowsvm1"
   resource_group_name             = data.azurerm_resource_group.rg.name
   location                        = data.azurerm_resource_group.rg.location
-  size                            = "Standard_B2s"
+  //size                          = "Standard_B2s"
+  size                            = "Standard_F2"
   admin_username                  = "adminlogin"
   admin_password                  = "Password@123"
   
@@ -73,7 +74,8 @@ resource "azurerm_linux_virtual_machine" "myLinuxVm1" {
   name                = "mylinuxvm1"
   resource_group_name = data.azurerm_resource_group.rg.name
   location            = data.azurerm_resource_group.rg.location
-  size                = "Standard_B2s"
+  //size                          = "Standard_B2s"
+  size                            = "Standard_F2"
   admin_username      = "adminuser"
   admin_password      = "Password@123"
   disable_password_authentication = false
