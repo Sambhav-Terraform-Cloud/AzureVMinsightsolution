@@ -48,8 +48,8 @@ resource "azurerm_windows_virtual_machine" "myWindowsVm1" {
   admin_password                  = "Password@123"
   
   identity {
-    type         = "SystemAssigned, UserAssigned"
-    identity_ids = [azurerm_user_assigned_identity.myUserassignedIdentiy.id]
+    type         = "UserAssigned"
+    identity_ids = [azurerm_user_assigned_identity.myUserassignedIdentity.id]
   }
 
   network_interface_ids = [
@@ -80,8 +80,8 @@ resource "azurerm_linux_virtual_machine" "myLinuxVm1" {
   disable_password_authentication = false
   
   identity {
-    type         = "SystemAssigned, UserAssigned"
-    identity_ids = [azurerm_user_assigned_identity.myUserassignedIdentiy.id]
+    type         = "UserAssigned"
+    identity_ids = [azurerm_user_assigned_identity.myUserassignedIdentity.id]
   }
   
   network_interface_ids = [
