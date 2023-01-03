@@ -4,7 +4,6 @@
 resource "azurerm_virtual_machine_extension" "azure-monitor-agent" {
   
 depends_on = [  azurerm_monitor_data_collection_rule.rule ]
-depends_on = [  azurerm_user_assigned_identity.myUserassignedIdentity ]
 
   for_each = {
     "AzureMonitorWindowsAgent" = {machine_id = "${azurerm_windows_virtual_machine.myWindowsVm1.id}", version = "1.10"}
@@ -27,7 +26,7 @@ depends_on = [  azurerm_user_assigned_identity.myUserassignedIdentity ]
     authentication = {
       managedIdentity = {
         identifier-name  = "mi_res_id"
-        identifier-value = azurerm_user_assigned_identity.myUserassignedIdentiy.id
+        identifier-value = azurerm_user_assigned_identity.myUserassignedIdentity.id
       }
     }
 
