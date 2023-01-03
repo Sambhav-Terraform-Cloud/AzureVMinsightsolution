@@ -2,12 +2,8 @@
   # Add logging and monitoring extensions. This extension is needed for other extensions
 resource "azurerm_virtual_machine_extension" "azure-monitor-agent" {
   
-  timeouts {
-    create = "20m"
-    delete = "20m"
-    update = "20m"
-  }
-
+  depends_on                 = [azurerm_virtual_machine_extension.azure-dependency-agent]
+  
   for_each = {
     "AzureMonitorWindowsAgent" = {machine_id = "${azurerm_windows_virtual_machine.myWindowsVm1.id}", version = "1.10"}
     "AzureMonitorLinuxAgent" = {machine_id = "${azurerm_linux_virtual_machine.myLinuxVm1.id}", version = "1.24"}
@@ -24,6 +20,7 @@ resource "azurerm_virtual_machine_extension" "azure-monitor-agent" {
   settings = jsonencode({
     workspaceId               = azurerm_log_analytics_workspace.law.id
     azureResourceId           = each.value.machine_id
+    stopOnMultipleConnections = false
 
   })
   protected_settings = jsonencode({
@@ -34,8 +31,6 @@ resource "azurerm_virtual_machine_extension" "azure-monitor-agent" {
 
 # Dependency agent extension
 resource "azurerm_virtual_machine_extension" "azure-dependency-agent" {
-
-  depends_on = [  azurerm_virtual_machine_extension.azure-monitor-agent  ]
   
   for_each = {
     "DependencyAgentWindows" = {machine_id = "${azurerm_windows_virtual_machine.myWindowsVm1.id}", version = "9.10"}
