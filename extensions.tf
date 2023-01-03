@@ -1,5 +1,4 @@
 
-/*
   # Add logging and monitoring extensions. This extension is needed for other extensions
 resource "azurerm_virtual_machine_extension" "azure-monitor-agent" {
   
@@ -59,4 +58,3 @@ resource "azurerm_virtual_machine_extension" "azure-dependency-agent" {
   automatic_upgrade_enabled  = true
   auto_upgrade_minor_version = true
 }
-*/
