@@ -2,7 +2,7 @@ data "azurerm_resource_group" "rg" {
   name = "myrg"
 }
 
-data "azurerm_log_analytics_workspace" "myloganalyticsws {
+data "azurerm_log_analytics_workspace" "law" {
   name = "vmloganalytics"
 }
 
