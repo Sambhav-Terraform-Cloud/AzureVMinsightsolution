@@ -2,7 +2,7 @@
   # Add logging and monitoring extensions. This extension is needed for other extensions
 resource "azurerm_virtual_machine_extension" "azure-monitor-agent" {
   
-  depends_on                 = [azurerm_virtual_machine_extension.azure-dependency-agent]
+  depends_on                 = [azurerm_virtual_machine_extension.azureda]
   
   for_each = {
     "AzureMonitorWindowsAgent" = {machine_id = "${data.azurerm_windows_virtual_machine.windowsVM.id}", version = "1.10"}
@@ -30,7 +30,7 @@ resource "azurerm_virtual_machine_extension" "azure-monitor-agent" {
 
 
 # Dependency agent extension
-resource "azurerm_virtual_machine_extension" "azure-dependency-agent" {
+resource "azurerm_virtual_machine_extension" "azureda" {
   
   for_each = {
     "DependencyAgentWindows" = {machine_id = "${data.azurerm_windows_virtual_machine.windowsVM.id}", version = "9.10"}
