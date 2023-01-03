@@ -3,9 +3,7 @@
   # Add logging and monitoring extensions. This extension is needed for other extensions
 resource "azurerm_virtual_machine_extension" "azure-monitor-agent" {
   
-  depends_on = [  azurerm_monitor_data_collection_rule.rule ]
-  
-   timeouts {
+  timeouts {
     create = "20m"
     delete = "20m"
     update = "20m"
