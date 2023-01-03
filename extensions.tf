@@ -5,8 +5,8 @@ resource "azurerm_virtual_machine_extension" "azure-monitor-agent" {
   depends_on                 = [azurerm_virtual_machine_extension.azure-dependency-agent]
   
   for_each = {
-    "AzureMonitorWindowsAgent" = {machine_id = "${azurerm_windows_virtual_machine.myWindowsVm1.id}", version = "1.10"}
-    "AzureMonitorLinuxAgent" = {machine_id = "${azurerm_linux_virtual_machine.myLinuxVm1.id}", version = "1.24"}
+    "AzureMonitorWindowsAgent" = {machine_id = "${data.azurerm_windows_virtual_machine.windowsVM.id}", version = "1.10"}
+    "AzureMonitorLinuxAgent" = {machine_id = "${data.azurerm_linux_virtual_machine.linuxVM.id}", version = "1.24"}
   }
   
   name                  = each.key
@@ -18,13 +18,13 @@ resource "azurerm_virtual_machine_extension" "azure-monitor-agent" {
   virtual_machine_id    = each.value.machine_id
   
   settings = jsonencode({
-    workspaceId               = azurerm_log_analytics_workspace.law.id
+    workspaceId               = data.azurerm_log_analytics_workspace.law.id
     azureResourceId           = each.value.machine_id
     stopOnMultipleConnections = false
 
   })
   protected_settings = jsonencode({
-    "workspaceKey" = azurerm_log_analytics_workspace.law.primary_shared_key
+    "workspaceKey" = data.azurerm_log_analytics_workspace.law.primary_shared_key
   })
 }
 
@@ -33,8 +33,8 @@ resource "azurerm_virtual_machine_extension" "azure-monitor-agent" {
 resource "azurerm_virtual_machine_extension" "azure-dependency-agent" {
   
   for_each = {
-    "DependencyAgentWindows" = {machine_id = "${azurerm_windows_virtual_machine.myWindowsVm1.id}", version = "9.10"}
-    "DependencyAgentLinux" = {machine_id = "${azurerm_linux_virtual_machine.myLinuxVm1.id}", version = "9.5"}
+    "DependencyAgentWindows" = {machine_id = "${data.azurerm_windows_virtual_machine.windowsVM.id}", version = "9.10"}
+    "DependencyAgentLinux" = {machine_id = "${data.azurerm_linux_virtual_machine.linuxVM.id}", version = "9.5"}
   }
   
   name                  = "DAExtension"
