@@ -1,5 +1,5 @@
 data "azurerm_resource_group" "rg" {
-  name = "myrg"
+  name = "myrg1"
 }
 
 data "azurerm_log_analytics_workspace" "law" {
