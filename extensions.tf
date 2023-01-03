@@ -25,13 +25,6 @@ resource "azurerm_virtual_machine_extension" "azure-monitor-agent" {
     workspaceId               = azurerm_log_analytics_workspace.law.id
     azureResourceId           = each.value.machine_id
 
-    authentication = {
-      managedIdentity = {
-        identifier-name  = "mi_res_id"
-        identifier-value = azurerm_user_assigned_identity.myUserassignedIdentity.id
-      }
-    }
-
   })
   protected_settings = jsonencode({
     "workspaceKey" = azurerm_log_analytics_workspace.law.primary_shared_key
@@ -42,9 +35,8 @@ resource "azurerm_virtual_machine_extension" "azure-monitor-agent" {
 # Dependency agent extension
 resource "azurerm_virtual_machine_extension" "azure-dependency-agent" {
 
-  // depends_on = [  azurerm_virtual_machine_extension.azure-monitor-agent  ]
+  depends_on = [  azurerm_virtual_machine_extension.azure-monitor-agent  ]
   
-  #type as key
   for_each = {
     "DependencyAgentWindows" = {machine_id = "${azurerm_windows_virtual_machine.myWindowsVm1.id}", version = "9.10"}
     "DependencyAgentLinux" = {machine_id = "${azurerm_linux_virtual_machine.myLinuxVm1.id}", version = "9.5"}
