@@ -54,8 +54,6 @@ data_flow {
 
 resource "azurerm_monitor_data_collection_rule_association" "dcra" {
   
-  depends_on = [  azurerm_monitor_data_collection_rule.rule  ]
-  
   for_each = {
         "windowsVM-dcra-" = {machine_id = "${azurerm_windows_virtual_machine.myWindowsVm1.id}", desc = "Windows VM data collection rule association"}
         "linuxVM-dcra" = {machine_id = "${azurerm_linux_virtual_machine.myLinuxVm1.id}", desc = "Linux VM data collection rule association"}
@@ -65,19 +63,3 @@ resource "azurerm_monitor_data_collection_rule_association" "dcra" {
   data_collection_rule_id = "${azurerm_monitor_data_collection_rule.rule.id}"
   description             = each.value.desc
 }
-
-/*
-  
-resource "azurerm_monitor_data_collection_rule_association" "dcra" {
-  
-  for_each = {
-        "windowsVM-dcra-" = {machine_id = "${azurerm_windows_virtual_machine.myWindowsVm1.id}", desc = "Windows VM data collection rule association", dcra_id = "${azurerm_monitor_data_collection_rule.rule-windows.id}"}
-        "linuxVM-dcra" = {machine_id = "${azurerm_linux_virtual_machine.myLinuxVm1.id}", desc = "Linux VM data collection rule association", dcra_id = "${azurerm_monitor_data_collection_rule.rule-linux.id}"}
-  }
-  name                    = each.key
-  target_resource_id      = each.value.machine_id
-  data_collection_rule_id = each.value.dcra_id
-  description             = each.value.desc
-}
-
-*/
