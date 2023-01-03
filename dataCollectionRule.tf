@@ -56,8 +56,8 @@ data_flow {
 resource "azurerm_monitor_data_collection_rule_association" "dcra" {
   
   for_each = {
-        "windowsVM-dcra-" = {machine_id = "${data.azurerm_windows_virtual_machine.myWindowsVm1.id}", desc = "Windows VM data collection rule association"}
-        "linuxVM-dcra" = {machine_id = "${data.azurerm_linux_virtual_machine.myLinuxVm1.id}", desc = "Linux VM data collection rule association"}
+        "windowsVM-dcra-" = {machine_id = "${data.azurerm_windows_virtual_machine.windowsVM.id}", desc = "Windows VM data collection rule association"}
+        "linuxVM-dcra" = {machine_id = "${data.azurerm_linux_virtual_machine.linuxVM.id}", desc = "Linux VM data collection rule association"}
   }
   name                    = each.key
   target_resource_id      = each.value.machine_id
