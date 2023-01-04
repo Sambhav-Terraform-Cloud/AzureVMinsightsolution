@@ -62,7 +62,7 @@ resource "azurerm_virtual_machine_extension" "OMS" {
 resource "azurerm_virtual_machine_extension" "msmonitor-agent-winodws" {
   depends_on = [  azurerm_virtual_machine_extension.azureda  ]
   name                  = "MicrosoftMonitoringAgent"  # Must be called this
-  virtual_machine_id    = data.azurerm_windows_virtual_machine.windowsVM.id
+  virtual_machine_id    = data.azurerm_virtual_machine.windowsVM.id
   publisher             = "Microsoft.EnterpriseCloud.Monitoring"
   type                  = "MicrosoftMonitoringAgent"
   type_handler_version  =  "1.0"
