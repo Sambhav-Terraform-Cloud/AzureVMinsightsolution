@@ -1,7 +1,7 @@
 
   # Add logging and monitoring extensions. This extension is needed for other extensions
 
-/*
+
 resource "azurerm_virtual_machine_extension" "azure-monitor-agent" {
   
   depends_on                 = [azurerm_virtual_machine_extension.azureda]
@@ -19,56 +19,70 @@ resource "azurerm_virtual_machine_extension" "azure-monitor-agent" {
   auto_upgrade_minor_version = "true"
   virtual_machine_id    = each.value.machine_id
   
-  settings = jsonencode({
-    workspaceId               = "${data.azurerm_log_analytics_workspace.law.id}"
-    azureResourceId           = each.value.machine_id
-    stopOnMultipleConnections = false
-
-  })
-  protected_settings = jsonencode({
-    "workspaceKey" = "${data.azurerm_log_analytics_workspace.law.primary_shared_key}"
-  })
+  settings = <<SETTINGS
+    {
+        "workspaceId": "${data.azurerm_log_analytics_workspace.law.workspace_id}",
+        "azureResourceId": "${each.value.machine_id}",
+        "stopOnMultipleConnections": "false"
+    }
+  SETTINGS
+  protected_settings = <<PROTECTED_SETTINGS
+    {
+      "workspaceKey": "${azurerm_log_analytics_workspace.law.primary_shared_key}"
+    }
+  PROTECTED_SETTINGS
 }
 
-*/
-  
-resource "azurerm_virtual_machine_extension" "azuremonitorwindowsagent" {
-  depends_on                 = [azurerm_virtual_machine_extension.azureda]
-  name                       = "AzureMonitorWindowsAgent"
-  publisher                  = "Microsoft.Azure.Monitor"
-  type                       = "AzureMonitorWindowsAgent"
-  type_handler_version       = 1.8
-  automatic_upgrade_enabled  = true
-  auto_upgrade_minor_version = "true"
-  virtual_machine_id         = data.azurerm_virtual_machine.windowsVM.id
-  settings = jsonencode({
-    workspaceId               = data.azurerm_log_analytics_workspace.law.id
-    azureResourceId           = data.azurerm_virtual_machine.windowsVM.id
-    stopOnMultipleConnections = false
-  })
-  protected_settings = jsonencode({
-    "workspaceKey" = data.azurerm_log_analytics_workspace.law.primary_shared_key
-  })
+
+# OMS Agent for Linux
+resource "azurerm_virtual_machine_extension" "OMS" {
+  name                       = "OMSExtension"
+  virtual_machine_id         =  data.azurerm_virtual_machine.linuxVM.id
+  publisher                  = "Microsoft.EnterpriseCloud.Monitoring"
+  type                       = "OmsAgentForLinux"
+  type_handler_version       = "1.13"
+  auto_upgrade_minor_version = true
+
+  settings = <<SETTINGS
+    {
+      "workspaceId" : "${azurerm_log_analytics_workspace.law.workspace_id}"
+    }
+  SETTINGS
+
+  protected_settings = <<PROTECTED_SETTINGS
+    {
+      "workspaceKey" : "${data.azurerm_log_analytics_workspace.law.primary_shared_key}"
+    }
+  PROTECTED_SETTINGS
 }
 
-resource "azurerm_virtual_machine_extension" "azuremonitorlinuxagent" {
-  depends_on                 = [azurerm_virtual_machine_extension.azureda]
-  name                       = "AzureMonitorLinuxAgent"
-  publisher                  = "Microsoft.Azure.Monitor"
-  type                       = "AzureMonitorLinuxAgent"
-  type_handler_version       = 1.22.2
-  automatic_upgrade_enabled  = true
-  auto_upgrade_minor_version = "true"
-  virtual_machine_id         = data.azurerm_virtual_machine.linuxVM.id
-  settings = jsonencode({
-    workspaceId               = data.azurerm_log_analytics_workspace.law.id
-    azureResourceId           = data.azurerm_virtual_machine.linuxVM.id
-    stopOnMultipleConnections = false
-  })
-  protected_settings = jsonencode({
-    "workspaceKey" = data.azurerm_log_analytics_workspace.law.primary_shared_key
-  })
+
+# MMA Agent for windows
+resource "azurerm_virtual_machine_extension" "msmonitor-agent-winodws" {
+  depends_on = [  azurerm_virtual_machine_extension.daa-agent  ]
+  name                  = "MicrosoftMonitoringAgent"  # Must be called this
+  virtual_machine_id    = azurerm_windows_virtual_machine.windowsvm-c.id
+  publisher             = "Microsoft.EnterpriseCloud.Monitoring"
+  type                  = "MicrosoftMonitoringAgent"
+  type_handler_version  =  "1.0"
+  # Not yet supported
+  # automatic_upgrade_enabled  = true
+  # auto_upgrade_minor_version = true
+  settings = <<SETTINGS
+    {
+        "workspaceId": "${data.azurerm_log_analytics_workspace.law.workspace_id}",
+        "azureResourceId": "${data.azurerm_virtual_machine.windowsVM.id}",
+        "stopOnMultipleConnections": "false"
+    }
+  SETTINGS
+  protected_settings = <<PROTECTED_SETTINGS
+    {
+      "workspaceKey": "${azurerm_log_analytics_workspace.law.primary_shared_key}"
+    }
+  PROTECTED_SETTINGS
 }
+
+
 
 # Dependency agent extension
 resource "azurerm_virtual_machine_extension" "azureda" {
