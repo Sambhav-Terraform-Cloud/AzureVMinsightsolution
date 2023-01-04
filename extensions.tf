@@ -6,7 +6,7 @@ resource "azurerm_virtual_machine_extension" "azure-monitor-agent" {
   
   for_each = {
     "AzureMonitorWindowsAgent" = {machine_id = "${data.azurerm_virtual_machine.windowsVM.id}", version = "1.10"}
-    "AzureMonitorLinuxAgent" = {machine_id = "${data.azurerm_virtual_machine.linuxVM.id}", version = "1.24"}
+    "AzureMonitorLinuxAgent" = {machine_id = "${data.azurerm_virtual_machine.linuxVM.id}", version = "1.0"}
   }
   
   name                  = each.key
