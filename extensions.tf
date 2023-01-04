@@ -1,7 +1,7 @@
 
   # Add logging and monitoring extensions. This extension is needed for other extensions
 
-
+/*
 resource "azurerm_virtual_machine_extension" "azure-monitor-agent" {
   
   depends_on                 = [azurerm_virtual_machine_extension.azureda]
@@ -33,7 +33,7 @@ resource "azurerm_virtual_machine_extension" "azure-monitor-agent" {
   PROTECTED_SETTINGS
 }
 
-
+*/
 # OMS Agent for Linux
 resource "azurerm_virtual_machine_extension" "OMS" {
   depends_on = [  azurerm_virtual_machine_extension.azureda  ]
