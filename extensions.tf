@@ -18,13 +18,13 @@ resource "azurerm_virtual_machine_extension" "azure-monitor-agent" {
   virtual_machine_id    = each.value.machine_id
   
   settings = jsonencode({
-    workspaceId               = data.azurerm_log_analytics_workspace.law.id
+    workspaceId               = "${data.azurerm_log_analytics_workspace.law.id}"
     azureResourceId           = each.value.machine_id
     stopOnMultipleConnections = false
 
   })
   protected_settings = jsonencode({
-    "workspaceKey" = data.azurerm_log_analytics_workspace.law.primary_shared_key
+    "workspaceKey" = "${data.azurerm_log_analytics_workspace.law.primary_shared_key}"
   })
 }
 
