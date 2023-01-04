@@ -33,7 +33,7 @@ resource "azurerm_virtual_machine_extension" "azure-monitor-agent" {
 */
   
 resource "azurerm_virtual_machine_extension" "azuremonitorwindowsagent" {
-  depends_on                 = [azurerm_virtual_machine_extension.da]
+  depends_on                 = [azurerm_virtual_machine_extension.azureda]
   name                       = "AzureMonitorWindowsAgent"
   publisher                  = "Microsoft.Azure.Monitor"
   type                       = "AzureMonitorWindowsAgent"
@@ -47,12 +47,12 @@ resource "azurerm_virtual_machine_extension" "azuremonitorwindowsagent" {
     stopOnMultipleConnections = false
   })
   protected_settings = jsonencode({
-    "workspaceKey" = data.azurerm_log_analytics_workspace.workspace.primary_shared_key
+    "workspaceKey" = data.azurerm_log_analytics_workspace.law.primary_shared_key
   })
 }
 
 resource "azurerm_virtual_machine_extension" "azuremonitorlinuxagent" {
-  depends_on                 = [azurerm_virtual_machine_extension.da]
+  depends_on                 = [azurerm_virtual_machine_extension.azureda]
   name                       = "AzureMonitorLinuxAgent"
   publisher                  = "Microsoft.Azure.Monitor"
   type                       = "AzureMonitorLinuxAgent"
