@@ -5,7 +5,7 @@ resource "azurerm_virtual_machine_extension" "azure-monitor-agent" {
   depends_on                 = [azurerm_virtual_machine_extension.azureda]
   
   for_each = {
-    "AzureMonitorWindowsAgent" = {machine_id = "${data.azurerm_virtual_machine.windowsVM.id}", version = "1.10"}
+    "AzureMonitorWindowsAgent" = {machine_id = "${data.azurerm_virtual_machine.windowsVM.id}", version = "1.8"}
     "AzureMonitorLinuxAgent" = {machine_id = "${data.azurerm_virtual_machine.linuxVM.id}", version = "1.0"}
   }
   
