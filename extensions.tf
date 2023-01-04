@@ -28,7 +28,7 @@ resource "azurerm_virtual_machine_extension" "azure-monitor-agent" {
   SETTINGS
   protected_settings = <<PROTECTED_SETTINGS
     {
-      "workspaceKey": "${azurerm_log_analytics_workspace.law.primary_shared_key}"
+      "workspaceKey": "${data.azurerm_log_analytics_workspace.law.primary_shared_key}"
     }
   PROTECTED_SETTINGS
 }
@@ -45,7 +45,7 @@ resource "azurerm_virtual_machine_extension" "OMS" {
 
   settings = <<SETTINGS
     {
-      "workspaceId" : "${azurerm_log_analytics_workspace.law.workspace_id}"
+      "workspaceId" : "${data.azurerm_log_analytics_workspace.law.workspace_id}"
     }
   SETTINGS
 
@@ -77,7 +77,7 @@ resource "azurerm_virtual_machine_extension" "msmonitor-agent-winodws" {
   SETTINGS
   protected_settings = <<PROTECTED_SETTINGS
     {
-      "workspaceKey": "${azurerm_log_analytics_workspace.law.primary_shared_key}"
+      "workspaceKey": "${data.azurerm_log_analytics_workspace.law.primary_shared_key}"
     }
   PROTECTED_SETTINGS
 }
