@@ -1,5 +1,7 @@
 
   # Add logging and monitoring extensions. This extension is needed for other extensions
+
+/*
 resource "azurerm_virtual_machine_extension" "azure-monitor-agent" {
   
   depends_on                 = [azurerm_virtual_machine_extension.azureda]
@@ -28,6 +30,45 @@ resource "azurerm_virtual_machine_extension" "azure-monitor-agent" {
   })
 }
 
+*/
+  
+resource "azurerm_virtual_machine_extension" "azuremonitorwindowsagent" {
+  depends_on                 = [azurerm_virtual_machine_extension.da]
+  name                       = "AzureMonitorWindowsAgent"
+  publisher                  = "Microsoft.Azure.Monitor"
+  type                       = "AzureMonitorWindowsAgent"
+  type_handler_version       = 1.8
+  automatic_upgrade_enabled  = true
+  auto_upgrade_minor_version = "true"
+  virtual_machine_id         = data.azurerm_virtual_machine.windowsVM.id
+  settings = jsonencode({
+    workspaceId               = data.azurerm_log_analytics_workspace.law.id
+    azureResourceId           = data.azurerm_virtual_machine.windowsVM.id
+    stopOnMultipleConnections = false
+  })
+  protected_settings = jsonencode({
+    "workspaceKey" = data.azurerm_log_analytics_workspace.workspace.primary_shared_key
+  })
+}
+
+resource "azurerm_virtual_machine_extension" "azuremonitorlinuxagent" {
+  depends_on                 = [azurerm_virtual_machine_extension.da]
+  name                       = "AzureMonitorLinuxAgent"
+  publisher                  = "Microsoft.Azure.Monitor"
+  type                       = "AzureMonitorLinuxAgent"
+  type_handler_version       = 1.0
+  automatic_upgrade_enabled  = true
+  auto_upgrade_minor_version = "true"
+  virtual_machine_id         = data.azurerm_virtual_machine.linuxVM.id
+  settings = jsonencode({
+    workspaceId               = data.azurerm_log_analytics_workspace.law.id
+    azureResourceId           = data.azurerm_virtual_machine.linuxVM.id
+    stopOnMultipleConnections = false
+  })
+  protected_settings = jsonencode({
+    "workspaceKey" = data.azurerm_log_analytics_workspace.law.primary_shared_key
+  })
+}
 
 # Dependency agent extension
 resource "azurerm_virtual_machine_extension" "azureda" {
