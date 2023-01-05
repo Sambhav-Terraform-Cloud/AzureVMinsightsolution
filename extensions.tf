@@ -118,4 +118,3 @@ resource "azurerm_virtual_machine_extension" "azureda" {
     }
   PROTECTED_SETTINGS
 }
-}
