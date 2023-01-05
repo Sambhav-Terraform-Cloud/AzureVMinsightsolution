@@ -3,11 +3,7 @@ resource "azurerm_resource_group_template_deployment" "memory_alert_deploy" {
   resource_group_name  =     data.azurerm_resource_group.rg.name
   deployment_mode      =     "Incremental"
   parameters_content = jsonencode({
-    "logic_app_name" = { value = local.logicappname }
-    "location" = { value = var.location }
-    "username" = { value = var.snow_username}
-    "password" = { value = var.snow_password}
-    "servicenowurl" = { value = var.snow_url}
+    "location" = { value = ${data.azurerm_resource_group.rg.location} }
   })
   template_content  =     <<TEMPLATE
 {
@@ -78,12 +74,6 @@ resource "azurerm_resource_group_template_deployment" "memory_alert_deploy" {
 }
 TEMPLATE
 }
-
-/*
-output "my_logicapp" {
-  value = data.azurerm_logic_app_workflow.existing_logicapp
-} 
-*/
 
 
 
