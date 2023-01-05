@@ -35,7 +35,6 @@ resource "azurerm_virtual_machine_extension" "azure-monitor-agent" {
 
 */
   
-/*
 # OMS Agent for Linux
 resource "azurerm_virtual_machine_extension" "OMS" {
   depends_on = [  azurerm_virtual_machine_extension.azureda  ]
@@ -85,10 +84,7 @@ resource "azurerm_virtual_machine_extension" "msmonitor-agent-winodws" {
   PROTECTED_SETTINGS
 }
 
-*/
-
-
-
+/*
 # Dependency agent extension
 resource "azurerm_virtual_machine_extension" "azureda" {
   
@@ -118,3 +114,4 @@ resource "azurerm_virtual_machine_extension" "azureda" {
     }
   PROTECTED_SETTINGS
 }
+*/
