@@ -16,3 +16,11 @@ data "azurerm_virtual_machine" "linuxVM" {
   name = "mylinuxvm1"
   resource_group_name = data.azurerm_resource_group.rg.name
 }
+
+data "azurerm_logic_app_workflow" "existing_logicapp" {
+ name = local.logicappname
+ resource_group_name = data.azurerm_resource_group.rg.name
+ depends_on = [
+    azurerm_resource_group_template_deployment.logicappdeploy
+  ]
+}
