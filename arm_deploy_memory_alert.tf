@@ -3,7 +3,7 @@ resource "azurerm_resource_group_template_deployment" "memory_alert_deploy" {
   resource_group_name  =     data.azurerm_resource_group.rg.name
   deployment_mode      =     "Incremental"
   parameters_content = jsonencode({
-    "location" = { value = ${data.azurerm_resource_group.rg.location} }
+    "location" = { value = data.azurerm_resource_group.rg.location }
   })
   template_content  =     <<TEMPLATE
 {
