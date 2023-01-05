@@ -37,7 +37,7 @@ resource "azurerm_virtual_machine_extension" "azure-monitor-agent" {
   
 # OMS Agent for Linux
 resource "azurerm_virtual_machine_extension" "OMS" {
-  depends_on = [  azurerm_virtual_machine_extension.azureda  ]
+  //depends_on = [  azurerm_virtual_machine_extension.azureda  ]
   name                       = "OMSExtension"
   virtual_machine_id         =  data.azurerm_virtual_machine.linuxVM.id
   publisher                  = "Microsoft.EnterpriseCloud.Monitoring"
@@ -61,7 +61,7 @@ resource "azurerm_virtual_machine_extension" "OMS" {
 
 # MMA Agent for windows
 resource "azurerm_virtual_machine_extension" "msmonitor-agent-winodws" {
-  depends_on = [  azurerm_virtual_machine_extension.azureda  ]
+  //depends_on = [  azurerm_virtual_machine_extension.azureda  ]
   name                  = "MicrosoftMonitoringAgent"  # Must be called this
   virtual_machine_id    = data.azurerm_virtual_machine.windowsVM.id
   publisher             = "Microsoft.EnterpriseCloud.Monitoring"
