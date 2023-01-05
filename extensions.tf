@@ -108,7 +108,7 @@ resource "azurerm_virtual_machine_extension" "azureda" {
   settings = <<SETTINGS
     {
         "workspaceId": "${data.azurerm_log_analytics_workspace.law.workspace_id}",
-        "azureResourceId": each.value.machine_id,
+        "azureResourceId": "${each.value.machine_id}",
         "stopOnMultipleConnections": "false"
     }
   SETTINGS
