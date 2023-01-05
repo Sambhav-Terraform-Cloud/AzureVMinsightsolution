@@ -83,8 +83,7 @@ resource "azurerm_virtual_machine_extension" "msmonitor-agent-winodws" {
 }
 
 */
-
-/*
+  
 # Dependency agent extension
 resource "azurerm_virtual_machine_extension" "azureda" {
   
@@ -101,4 +100,3 @@ resource "azurerm_virtual_machine_extension" "azureda" {
   automatic_upgrade_enabled  = true
   auto_upgrade_minor_version = true
 }
-*/
