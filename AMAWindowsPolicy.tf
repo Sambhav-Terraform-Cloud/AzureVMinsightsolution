@@ -1,11 +1,3 @@
-data "azurerm_subscription" "current" {}
-
-variable "policy_definition_category" {
-  type        = string
-  description = "The category to use for all Policy Definitions"
-  default     = "Custom"
-}
-
 resource "azurerm_policy_definition" "deployAzureMonitoringAgentWindows" {
   name         = "deploy AzureMonitoringAgent"
   policy_type  = "Custom"
