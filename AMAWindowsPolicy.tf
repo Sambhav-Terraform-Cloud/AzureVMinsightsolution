@@ -1,4 +1,5 @@
-resource "azurerm_policy_definition" "deployAzureMonitoringAgentWindows" {
+/*
+  resource "azurerm_policy_definition" "deployAzureMonitoringAgentWindows" {
   name         = "deploy AzureMonitoringAgent"
   policy_type  = "Custom"
   mode         = "All"
@@ -284,3 +285,4 @@ resource "azurerm_subscription_policy_assignment" "assignAMAWindwsPolicy" {
   policy_definition_id = azurerm_policy_definition.deployAzureMonitoringAgentWindows.id
   subscription_id      = data.azurerm_subscription.current.id
 }
+*/
