@@ -291,6 +291,7 @@ METADATA
     }
   }
 }
+}
 POLICY_RULE
 }
 
