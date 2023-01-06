@@ -455,6 +455,7 @@ METADATA
   "type": "Microsoft.Authorization/policyDefinitions",
   "name": "1afdc4b6-581a-45fb-b630-f1e6051e3e7a"
 }
+}
 
 resource "azurerm_subscription_policy_assignment" "assignAMALinuxPolicy" {
   name                 = "assignAMAWindwsPolicy"
