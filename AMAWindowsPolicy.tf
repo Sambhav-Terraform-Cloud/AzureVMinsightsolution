@@ -297,11 +297,9 @@ METADATA
         }
       }
     }
-  },
-  "id": "/providers/Microsoft.Authorization/policyDefinitions/c02729e5-e5e7-4458-97fa-2b5ad0661f28",
-  "type": "Microsoft.Authorization/policyDefinitions",
-  "name": "c02729e5-e5e7-4458-97fa-2b5ad0661f28"
+  }
 }
+POLICY_RULE
 }
 
 resource "azurerm_subscription_policy_assignment" "assignAMAWindwsPolicy" {
