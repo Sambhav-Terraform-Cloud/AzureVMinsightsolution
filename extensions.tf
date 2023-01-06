@@ -7,7 +7,7 @@ resource "azurerm_virtual_machine_extension" "azure-monitor-agent" {
   
   for_each = {
     "AzureMonitorWindowsAgent" = {machine_id = "${data.azurerm_virtual_machine.windowsVM.id}", version = "1.8"}
-    "AzureMonitorLinuxAgent" = {machine_id = "${data.azurerm_virtual_machine.linuxVM.id}", version = "1.0"}
+    "AzureMonitorLinuxAgent" = {machine_id = "${data.azurerm_virtual_machine.linuxVM.id}", version = "1.21"}
   }
   
   name                  = each.key
@@ -17,6 +17,8 @@ resource "azurerm_virtual_machine_extension" "azure-monitor-agent" {
   automatic_upgrade_enabled  = true
   auto_upgrade_minor_version = "true"
   virtual_machine_id    = each.value.machine_id
+  
+  /*
   
   settings = <<SETTINGS
     {
@@ -30,8 +32,9 @@ resource "azurerm_virtual_machine_extension" "azure-monitor-agent" {
       "workspaceKey": "${data.azurerm_log_analytics_workspace.law.primary_shared_key}"
     }
   PROTECTED_SETTINGS
+*/
+  
 }
-
 /*
 # OMS Agent for Linux
 resource "azurerm_virtual_machine_extension" "OMS" {
