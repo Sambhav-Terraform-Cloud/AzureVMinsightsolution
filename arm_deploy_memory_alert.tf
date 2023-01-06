@@ -3,7 +3,7 @@
 resource "azurerm_monitor_scheduled_query_rules_alert_v2" "example" {
   name                = "example-msqrv2"
   resource_group_name = data.azurerm_resource_group.rg.name
-  location            = data.azurerm_resource_group.rg.name.location
+  location            = data.azurerm_resource_group.rg.location
 
   evaluation_frequency = "PT10M"
   window_duration      = "PT10M"
