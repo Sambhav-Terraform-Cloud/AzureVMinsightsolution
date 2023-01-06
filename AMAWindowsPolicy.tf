@@ -302,6 +302,7 @@ METADATA
   "type": "Microsoft.Authorization/policyDefinitions",
   "name": "c02729e5-e5e7-4458-97fa-2b5ad0661f28"
 }
+}
 
 resource "azurerm_subscription_policy_assignment" "assignAMAWindwsPolicy" {
   name                 = "assignAMAWindwsPolicy"
