@@ -17,7 +17,11 @@ resource "azurerm_resource_group_template_deployment" "memory_alert_deploy" {
         "actionGroups_actiongroup_logicapp_myrg1_externalid": {
             "defaultValue": "/subscriptions/913501B7-19FA-468C-8F19-29F69DCADE21/resourceGroups/myrg1/providers/microsoft.insights/actionGroups/actiongroup-logicapp-myrg1",
             "type": "String"
-        }
+        },
+      "location": {
+            "defaultValue": "westeurope"
+            "type" : "String"
+      }
     },
     "variables": {},
     "resources": [
@@ -25,7 +29,7 @@ resource "azurerm_resource_group_template_deployment" "memory_alert_deploy" {
             "type": "microsoft.insights/scheduledqueryrules",
             "apiVersion": "2022-06-15",
             "name": "[parameters('scheduledqueryrules_Memalert_name')]",
-            "location": "eastus",
+            "location": "[parameters('location')]",
             "properties": {
                 "displayName": "[parameters('scheduledqueryrules_Memalert_name')]",
                 "severity": 1,
