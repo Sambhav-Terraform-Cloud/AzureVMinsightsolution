@@ -35,8 +35,7 @@ resource "azurerm_policy_definition" "deployAzureMonitoringAgentLinux" {
     }
 
 METADATA
-
-
+  
   policy_rule = <<POLICY_RULE
     {
       "if": {
@@ -450,11 +449,9 @@ METADATA
         }
       }
     }
-  },
-  "id": "/providers/Microsoft.Authorization/policyDefinitions/1afdc4b6-581a-45fb-b630-f1e6051e3e7a",
-  "type": "Microsoft.Authorization/policyDefinitions",
-  "name": "1afdc4b6-581a-45fb-b630-f1e6051e3e7a"
-}
+  }
+ }
+ POLICY_RULE
 }
 
 resource "azurerm_subscription_policy_assignment" "assignAMALinuxPolicy" {
