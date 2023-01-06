@@ -1,4 +1,6 @@
-variable "policy_definition_category" {
+/*
+	
+  variable "policy_definition_category" {
   type        = string
   description = "The category to use for all Policy Definitions"
   default     = "Custom"
@@ -434,3 +436,4 @@ resource "azurerm_subscription_policy_assignment" "assignAMALinuxPolicy" {
   policy_definition_id = azurerm_policy_definition.deployAzureMonitoringAgentLinux.id
   subscription_id      = data.azurerm_subscription.current.id
 }
+*/
