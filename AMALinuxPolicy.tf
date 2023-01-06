@@ -25,19 +25,6 @@ resource "azurerm_policy_definition" "deployAzureMonitoringAgentLinux" {
     }
     }
   )
-  
-  parameters = <<PARAMETERS
- {
-    "effect": {
-      "type": "String",
-      "metadata": {
-        "description": "The effect action for the policy.",
-        "displayName": "Effect",
-        "defaultValue" : "DeployIfNotExists"
-      }
-    }
-  }
-PARAMETERS
 
   metadata = <<METADATA
     {
