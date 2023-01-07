@@ -3,7 +3,7 @@
 resource "azurerm_monitor_scheduled_query_rules_alert_v2" "example" {
   name                = "example-msqrv2"
   resource_group_name = data.azurerm_resource_group.rg.name
-  location            = data.azurerm_resource_group.rg.location
+  location            = data.azurerm_resource_group.rg.name.location
 
   evaluation_frequency = "PT10M"
   window_duration      = "PT10M"
@@ -18,12 +18,18 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "example" {
     operator                = "LessThan"
 
     //resource_id_column    = "client_CountryOrRegion"
-    //metric_measure_column = "CountByCountry"
+    metric_measure_column = "AggregatedValue"
     dimension {
       name     = "client_CountryOrRegion"
       operator = "Exclude"
       values   = ["123"]
     }
+
+     dimension {
+                                    name = "Computer"
+                                    operator = "Include"
+                                    values = ["*"]
+                                }
     failing_periods {
       minimum_failing_periods_to_trigger_alert = 1
       number_of_evaluation_periods             = 1
