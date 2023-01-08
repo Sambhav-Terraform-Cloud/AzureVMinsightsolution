@@ -18,8 +18,6 @@ resource "azurerm_virtual_machine_extension" "azure-monitor-agent" {
   auto_upgrade_minor_version = "true"
   virtual_machine_id    = each.value.machine_id
   
-  /*
-  
   settings = <<SETTINGS
     {
         "workspaceId": "${data.azurerm_log_analytics_workspace.law.workspace_id}",
@@ -32,7 +30,6 @@ resource "azurerm_virtual_machine_extension" "azure-monitor-agent" {
       "workspaceKey": "${data.azurerm_log_analytics_workspace.law.primary_shared_key}"
     }
   PROTECTED_SETTINGS
-*/
   
 }
 /*
