@@ -1,0 +1,59 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "scheduledqueryrules_Free_Space_Alert__Details_in_Work_Notes__name": {
+            "defaultValue": "Free Space Alert (Details in Work Notes)",
+            "type": "String"
+        },
+        "actiongroups_actiongroup_logicapp_myrg1_externalid": {
+            "defaultValue": "/subscriptions/913501b7-19fa-468c-8f19-29f69dcade21/resourceGroups/myrg1/providers/microsoft.insights/actiongroups/actiongroup-logicapp-myrg1",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "microsoft.insights/scheduledqueryrules",
+            "apiVersion": "2022-06-15",
+            "name": "[parameters('scheduledqueryrules_Free_Space_Alert__Details_in_Work_Notes__name')]",
+            "location": "eastus",
+            "properties": {
+                "displayName": "[parameters('scheduledqueryrules_Free_Space_Alert__Details_in_Work_Notes__name')]",
+                "description": "[parameters('scheduledqueryrules_Free_Space_Alert__Details_in_Work_Notes__name')]",
+                "severity": 1,
+                "enabled": false,
+                "evaluationFrequency": "PT5M",
+                "scopes": [
+                    "/subscriptions/913501b7-19fa-468c-8f19-29f69dcade21"
+                ],
+                "windowSize": "PT5M",
+                "overrideQueryTimeRange": "P2D",
+                "criteria": {
+                    "allOf": [
+                        {
+                            "query": "let MinTime = ago(1m);\nInsightsMetrics\n| where Namespace == \"LogicalDisk\" and Name == \"FreeSpacePercentage\"\n| where TimeGenerated > MinTime\n| project\n    Computer,\n    _ResourceId,\n    TimeGenerated,\n    Val,\n    extract('(.*:\")(.*)(\"})', 2, Tags, typeof(string))\n\n",
+                            "timeAggregation": "Maximum",
+                            "metricMeasureColumn": "Val",
+                            "dimensions": [],
+                            "resourceIdColumn": "_ResourceId",
+                            "operator": "GreaterThan",
+                            "threshold": 90,
+                            "failingPeriods": {
+                                "numberOfEvaluationPeriods": 1,
+                                "minFailingPeriodsToAlert": 1
+                            }
+                        }
+                    ]
+                },
+                "autoMitigate": true,
+                "actions": {
+                    "actionGroups": [
+                        "[parameters('actiongroups_actiongroup_logicapp_myrg1_externalid')]"
+                    ],
+                    "customProperties": {}
+                }
+            }
+        }
+    ]
+}
