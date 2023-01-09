@@ -1,5 +1,3 @@
-//test
-
 resource "azurerm_resource_group_template_deployment" "logicappdeploy" {
   name                 =    "deployment-${local.logicappname}"
   resource_group_name  =     data.azurerm_resource_group.rg.name
@@ -13,7 +11,7 @@ resource "azurerm_resource_group_template_deployment" "logicappdeploy" {
   })
   template_content  =     <<TEMPLATE
 
-{
+  {
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
@@ -43,8 +41,8 @@ resource "azurerm_resource_group_template_deployment" "logicappdeploy" {
         {
             "type": "Microsoft.Logic/workflows",
             "apiVersion": "2017-07-01",
-            "name": "[parameters('logic_app_name')]",
-            "location": "centralus",
+            "name": "[parameters('workflows_logicapp_myrg1_name')]",
+            "location": "[parameters('location')]",
             "properties": {
                 "state": "Enabled",
                 "definition": {
@@ -212,10 +210,11 @@ resource "azurerm_resource_group_template_deployment" "logicappdeploy" {
                                             "Priority": 1,
                                             "assigned_to": "",
                                             "caller_id": "azurelogicapp",
-                                            "cmdb_ci": "@{variables('ResourceName')[0]}",
+                                            "cmdb_ci": "",
+                                            "comments": "[[code]<table border='1'><tr><td>Resource Name</td><td> @{triggerBody()?['data']?['essentials']?['alertTargetIDs']} </td></tr><tr><td>Thresold</td><td> @{items('For_each')?['threshold']}</td></tr><tr><td>Time Generated (UTC)</td><td> @{triggerBody()?['data']?['essentials']?['firedDateTime']}</td></tr><tr><td>Current metric Value (When alert was fired)</td><td>@{items('For_each')?['metricValue']} </td></tr></table>[/code]",
                                             "description": "",
                                             "severity": "@{triggerBody()?['data']?['essentials']?['severity']}",
-                                            "short_description": "@{items('For_each')?['metricName']} greater than @{items('For_each')?['threshold']} for @{variables('ResourceName')[0]}",
+                                            "short_description": "@{triggerBody()?['data']?['essentials']?['description']} ",
                                             "sys_class_name": "incident",
                                             "urgency": 1,
                                             "work_notes": ""
@@ -257,6 +256,7 @@ resource "azurerm_resource_group_template_deployment" "logicappdeploy" {
         }
     ]
 }
+  
 TEMPLATE
 }
 
