@@ -5,7 +5,7 @@ resource "azurerm_resource_group_template_deployment" "memAlertDeploy" {
   parameters_content = jsonencode({
     "actiongroup_id" = { value = azurerm_monitor_action_group.ag.id},
     "name" = { value = "Free Space Alert (Details in Work Notes)" }
-    "scope" = data.azurerm_subscription.current.id
+    "scope" = "/subscriptions/${data.azurerm_subscription.current.id}"
   })
   template_content  =     <<TEMPLATE
 
@@ -40,7 +40,7 @@ resource "azurerm_resource_group_template_deployment" "memAlertDeploy" {
                 "enabled": true,
                 "evaluationFrequency": "PT5M",
                 "scopes": [
-                    "/subscriptions/[parameters('scope')]"
+                    "[parameters('scope')]"
                 ],
                 "windowSize": "PT5M",
                 "overrideQueryTimeRange": "P2D",
