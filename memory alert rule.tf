@@ -39,9 +39,7 @@ resource "azurerm_resource_group_template_deployment" "memAlertDeploy" {
                 "severity": 1,
                 "enabled": true,
                 "evaluationFrequency": "PT5M",
-                "scopes": [
-                    [parameters('scope')]
-                ],
+                "scopes": "[[parameters('scope')]",
                 "windowSize": "PT5M",
                 "overrideQueryTimeRange": "P2D",
                 "criteria": {
