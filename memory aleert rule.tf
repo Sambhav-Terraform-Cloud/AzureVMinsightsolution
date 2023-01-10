@@ -4,7 +4,7 @@ resource "azurerm_monitor_scheduled_query_rules_alert" "memalert" {
   resource_group_name = data.azurerm_resource_group.rg.name
 
   action {
-    action_group           = azurerm_monitor_action_group.ag.name
+    action_group           = [azurerm_monitor_action_group.ag.id]
   }
   data_source_id = azurerm_log_analytics_solution.vminsights.id
   description    = "Free Space Alert Details in Work Notes"
