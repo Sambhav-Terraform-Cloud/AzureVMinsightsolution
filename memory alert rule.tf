@@ -19,7 +19,7 @@ resource "azurerm_resource_group_template_deployment" "memAlertDeploy" {
         },
         "scope": {
             "defaultValue": "",
-            "type": "Object"
+            "type": "String"
         },
         "actiongroup_id": {
             "defaultValue": "",
