@@ -35,3 +35,6 @@ variable "snow_url" {
   type        = string
 }
 
+variable "logicappname" {
+  type        = string
+}
