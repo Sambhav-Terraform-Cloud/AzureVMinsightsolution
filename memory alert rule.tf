@@ -4,7 +4,7 @@ resource "azurerm_resource_group_template_deployment" "memAlertDeploy" {
   deployment_mode      =     "Incremental"
   parameters_content = jsonencode({
     "actiongroup_id" = { value = azurerm_monitor_action_group.ag.id},
-    "name" = { value = 'Free Space Alert (Details in Work Notes)' }
+    "name" = { value = "Free Space Alert (Details in Work Notes)" }
     "scope" = azurerm_subscription.current.id
   })
   template_content  =     <<TEMPLATE
