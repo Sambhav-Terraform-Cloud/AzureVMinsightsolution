@@ -41,7 +41,7 @@ resource "azurerm_resource_group_template_deployment" "logicappdeploy" {
         {
             "type": "Microsoft.Logic/workflows",
             "apiVersion": "2017-07-01",
-            "name": "[parameters('workflows_logicapp_myrg1_name')]",
+            "name": "[parameters('logic_app_name')]",
             "location": "[parameters('location')]",
             "properties": {
                 "state": "Enabled",
