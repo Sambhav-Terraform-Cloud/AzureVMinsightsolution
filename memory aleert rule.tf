@@ -19,7 +19,7 @@ resource "azurerm_monitor_scheduled_query_rules_alert" "memalert" {
   | where Namespace == "Memory" and Name == "AvailableMB"
   | extend TotalMemory = toreal(todynamic(Tags)["vm.azm.ms/memorySizeMB"]) | extend AvailableMemoryPercentage = (toreal(Val) / TotalMemory) * 100.0
   | summarize AggregatedValue = avg(AvailableMemoryPercentage) by bin(TimeGenerated, 15m), Computer, _ResourceId
-  | where AggregatedValue >= 90
+  | where AggregatedValue >= 50
   | project Computer, _ResourceId ,AggregatedValue
 
   QUERY
