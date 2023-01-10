@@ -64,7 +64,7 @@ resource "azurerm_resource_group_template_deployment" "memAlertDeploy" {
                 "autoMitigate": true,
                 "actions": {
                     "actionGroups": [
-                        "[parameters('actiongroups_actiongroup_logicapp_myrg1_externalid')]"
+                        "[parameters('actiongroup_id')]"
                     ],
                     "customProperties": {}
                 }
