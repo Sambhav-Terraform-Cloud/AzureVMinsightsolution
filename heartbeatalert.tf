@@ -44,7 +44,7 @@ resource "azurerm_resource_group_template_deployment" "heartbeatAlertDeploy" {
                 "enabled": true,
                 "evaluationFrequency": "PT5M",
                 "scopes": [
-                    "[parameters('name')]"
+                    "[parameters('scope')]"
                 ],
                 "windowSize": "PT5M",
                 "criteria": {
