@@ -1,9 +1,5 @@
 data "azurerm_subscription" "current" {}
 
-output sub_id {
-  value = data.azurerm_subscription.current.id
-}
-
 data "azurerm_resource_group" "rg" {
   name = "myrg1"
 }
