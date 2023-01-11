@@ -47,16 +47,7 @@ resource "azurerm_resource_group_template_deployment" "memAlertDeploy" {
                 "criteria": {
                     "allOf": [
                         {
-                            "query": "
-let MinTime = ago(2m);
-InsightsMetrics
-| where TimeGenerated > MinTime
-| where Origin == "vm.azm.ms"
-| where Namespace == "Memory" and Name == "AvailableMB"
-| extend TotalMemory = toreal(todynamic(Tags)["vm.azm.ms/memorySizeMB"]) | extend AvailableMemoryPercentage = (toreal(Val) / TotalMemory) * 100.0
-| summarize AggregatedValue = avg(AvailableMemoryPercentage) by bin(TimeGenerated, 15m), Computer, _ResourceId
-| where AggregatedValue >= 90
-| project Computer, _ResourceId ,AggregatedValue",
+                            "query": "let MinTime = ago(2m);\nInsightsMetrics\n| where TimeGenerated > MinTime \n| where Origin == \"vm.azm.ms\"\n| where Namespace == \"Memory\" and Name == \"AvailableMB\"\n| extend TotalMemory = toreal(todynamic(Tags)[\"vm.azm.ms/memorySizeMB\"]) | extend AvailableMemoryPercentage = (toreal(Val) / TotalMemory) * 100.0\n| summarize AggregatedValue = avg(AvailableMemoryPercentage) by bin(TimeGenerated, 15m), Computer, _ResourceId\n| where AggregatedValue >= 90\n| project Computer, _ResourceId ,AggregatedValue",
                             "timeAggregation": "Maximum",
                             "metricMeasureColumn": "AggregatedValue",
                             "dimensions": [],
