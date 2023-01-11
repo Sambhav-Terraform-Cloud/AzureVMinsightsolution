@@ -6,6 +6,7 @@ resource "azurerm_resource_group_template_deployment" "freespaceAlertDeploy" {
     "actiongroup_id" = { value = azurerm_monitor_action_group.ag.id },
     "name" = { value = "Free Space Alert (Details in Work Notes)" }
     "scope" = { value = data.azurerm_subscription.current.id }
+    "location" = { value = data.azurerm_resource_group.rg.location }
   })
   template_content  =     <<TEMPLATE
 
@@ -24,6 +25,9 @@ resource "azurerm_resource_group_template_deployment" "freespaceAlertDeploy" {
         "actiongroup_id": {
             "defaultValue": "",
             "type": "String"
+        }"location": {
+            "defaultValue": "",
+            "type": "String"
         }
     },
     "variables": {},
@@ -32,7 +36,7 @@ resource "azurerm_resource_group_template_deployment" "freespaceAlertDeploy" {
             "type": "microsoft.insights/scheduledqueryrules",
             "apiVersion": "2022-06-15",
             "name": "[parameters('name')]",
-            "location": "eastus",
+            "location": "[parameters('location')]",
             "properties": {
                 "displayName": "[parameters('name')]",
                 "description": "[parameters('name')]",
