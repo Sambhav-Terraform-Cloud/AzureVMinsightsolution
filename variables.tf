@@ -25,12 +25,15 @@ variable "window_size" {
 
 variable "snow_username" {
   type        = string
+  description = "Terraform Cloud Workspace Variable"
 }
 
 variable "snow_password" {
   type        = string
+  description = "Terraform Cloud Workspace Variable"
 }
 
 variable "snow_url" {
   type        = string
+  description = "Terraform Cloud Workspace Variable"
 }
