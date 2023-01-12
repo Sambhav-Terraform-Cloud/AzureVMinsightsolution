@@ -2,13 +2,13 @@
 resource "azurerm_monitor_metric_alert" "cpualert" {
   name                = "cpu-alertrule-${data.azurerm_resource_group.rg.name}"
   resource_group_name = data.azurerm_resource_group.rg.name
-  scopes              = [var.scope]
+  scopes              = data.azurerm_subscription.current.id
   description         = "Higher Thresold"
   target_resource_type = "Microsoft.Compute/virtualMachines"
-  target_resource_location = var.location
-  frequency                 = var.frequency
-  window_size               = var.window_size
-  severity                  = var.severity
+  target_resource_location = data.azurerm_resource_group.rg.location
+  frequency                 = "PT1M"
+  window_size               = "PT5M"
+  severity                  = 1
   
   criteria { 
     metric_namespace = "Microsoft.Compute/virtualMachines"
