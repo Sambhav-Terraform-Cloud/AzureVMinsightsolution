@@ -214,7 +214,7 @@ resource "azurerm_resource_group_template_deployment" "logicappdeploy" {
                                             "comments": "[[code]<table border='1'><tr><td>Resource Name</td><td> @{triggerBody()?['data']?['essentials']?['alertTargetIDs']} </td></tr><tr><td>Thresold</td><td> @{items('For_each')?['threshold']}</td></tr><tr><td>Time Generated (UTC)</td><td> @{triggerBody()?['data']?['essentials']?['firedDateTime']}</td></tr><tr><td>Current metric Value (When alert was fired)</td><td>@{items('For_each')?['metricValue']} </td></tr></table>[/code]",
                                             "description": "",
                                             "severity": "@{triggerBody()?['data']?['essentials']?['severity']}",
-                                            "short_description": "@{triggerBody()?['data']?['essentials']?['description']} ",
+                                            "short_description": "@{variables('ResourceName')}@{triggerBody()?['data']?['essentials']?['description']} (Details in Comments)",
                                             "sys_class_name": "incident",
                                             "urgency": 1,
                                             "work_notes": ""
