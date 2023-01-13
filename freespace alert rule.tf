@@ -15,7 +15,7 @@ resource "azurerm_resource_group_template_deployment" "freespaceAlertDeploy" {
     "contentVersion": "1.0.0.0",
     "parameters": {
         "name": {
-            "defaultValue": "Free Space Alert (Details in Comments)",
+            "defaultValue": "Free Space Alert",
             "type": "String"
         },
         "scope": {
