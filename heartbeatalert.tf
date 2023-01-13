@@ -50,7 +50,7 @@ resource "azurerm_resource_group_template_deployment" "heartbeatAlertDeploy" {
                 "criteria": {
                     "allOf": [
                         {
-                            "query": "Heartbeat\n| summarize LastHeartbeat=max(TimeGenerated) by Computer\n| where LastHeartbeat < ago(30s)\n",
+                            "query": "Heartbeat\n| summarize LastHeartbeat=max(TimeGenerated) by Computer\n| where LastHeartbeat < ago(2m)\n",
                             "timeAggregation": "Count",
                             "dimensions": [
                                 {
