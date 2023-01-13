@@ -4,7 +4,7 @@ resource "azurerm_resource_group_template_deployment" "logicappdeploy" {
   deployment_mode      =     "Incremental"
   parameters_content = jsonencode({
     "logic_app_name" = { value = local.logicappname }
-    "location" = { value = var.location }
+    "location" = { value = data.azurerm_resource_group.rg.location }
     "username" = { value = var.snow_username}
     "password" = { value = var.snow_password}
     "servicenowurl" = { value = var.snow_url}
