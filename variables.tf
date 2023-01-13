@@ -23,8 +23,11 @@ variable "window_size" {
   type        = string
 }
 
+
+############################################################
+################### Workspace Variables ####################
+############################################################
+
 variable "snow_username" {}
-
 variable "snow_password" {}
-
 variable "snow_url" {}
