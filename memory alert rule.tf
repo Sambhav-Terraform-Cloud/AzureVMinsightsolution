@@ -4,7 +4,7 @@ resource "azurerm_resource_group_template_deployment" "memAlertDeploy" {
   deployment_mode      =     "Incremental"
   parameters_content = jsonencode({
     "actiongroup_id" = { value = azurerm_monitor_action_group.ag.id },
-    "name" = { value = "High Memory Usage Alert (Details in Comments)" }
+    "name" = { value = "High Memory" }
     "scope" = { value = data.azurerm_subscription.current.id }
     "location" = { value = data.azurerm_resource_group.rg.location }
   })
