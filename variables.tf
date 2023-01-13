@@ -33,7 +33,6 @@ variable "snow_password" {
   type        = string
   default     = ""
   description = "Terraform Cloud Workspace Variable"
-  sensitive   = true
 }
 
 variable "snow_url" {
